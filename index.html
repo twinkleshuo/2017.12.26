@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title></title>
+		<style>
+			html {
+
+				width: 100%;
+				height: 100%;
+			}
+			body{
+				margin: 0px;
+				width: 100%;
+				height: 100%;
+			}
+			.main {
+				width: 100%;
+				height: 100%;
+				background: url(./image/bg.png) no-repeat;
+				background-size: 100% 100%;
+				overflow: hidden;
+			}
+			.logo {
+				display: block;
+				width: 200px;
+				height: 55px;
+				background: url(./image/logo.png) no-repeat;
+				margin: 20px auto;
+			}
+			.tree{
+				height:100%;
+				overflow: auto;
+			}
+			ul{
+				list-style: none;
+				font-size: 22px;
+				color: #8c949c;
+				font-weight: bold;
+				width:100%;
+				/* height:100%; */
+			}
+
+			ul li {
+				position: relative;
+				padding-left: 10px;
+				/* height:32px; */
+				overflow: hidden;
+			}
+
+			ul li div{
+				height: 98%;
+				/* width: 1px; */
+				border-left: 1px dotted #ccc;
+				/* position: absolute; */
+				/* left: 34px; */
+				/* top: 18px; */
+				/* margin-left :4px; */
+				line-height:32px;
+			}
+
+			ul ul{
+				display: none;
+			}
+
+			ul li span {
+				display: block;
+				line-height: 32px;
+				padding-left: 15px;
+				background: url(./image/icon.png) no-repeat left 500px;
+				width:20px;
+				height:20px;
+				float : left;
+			}
+			
+			ul li span.add {
+				background-position: 0px -32px;
+			}
+			ul li span.line {
+				background-position: 0px 11px;
+			}
+
+
+			.tree {
+				margin-left: 300px;
+			}
+
+		</style>
+		<script>
+			var arr = [
+		    {
+		        title : "第一级菜单",
+		        child : [
+		        	{title:"第二集菜单"},
+		            {title:"第二集菜单",
+		            child:[
+		            		{title:"第三集菜单"},
+		            		{title:"第三集菜单",
+		            		child:[
+		            			{title:"第四集菜单"},
+		            			{title:"第四集菜单"},
+		            			{title:"第四集菜单"}
+		            		]
+		            		},
+		            		{title:"第三集菜单"}
+		            	]
+		        	},
+		            {
+		            	title:"第二集菜单",
+		            	child:[
+		            		{title:"第三集菜单"},
+		            		{title:"第三集菜单"}
+		            	]
+		            }
+		        ]
+		    },
+		    {
+		        title : "第一级菜单",
+		        child : [
+		        	{title:"第二集菜单"},
+		            {title:"第二集菜单",
+		            child:[
+		            		{title:"第三集菜单"},
+		            		{title:"第三集菜单",
+		            		child:[
+		            			{title:"第四集菜单"},
+		            			{title:"第四集菜单"},
+		            			{title:"第四集菜单"}
+		            		]
+		            		},
+		            		{title:"第三集菜单"}
+		            	]
+		        	},
+		            {
+		            	title:"第二集菜单",
+		            	child:[
+		            		{title:"第三集菜单"},
+		            		{title:"第三集菜单"}
+		            	]
+		            }
+		        ]
+		    },
+		    {
+		    	title:"第一集菜单",
+		    	child : [
+		        	{title:"第二集菜单"},
+		            {title:"第二集菜单",
+		            
+		        	},
+		            {
+		            	title:"第二集菜单",
+		            	child:[
+		            		{title:"第三集菜单"},
+		            		{title:"第三集菜单"}
+		            	]
+		            }
+		        ]
+		         
+		    }
+		];
+		
+		/*
+			通过数据把结构生成出来。
+		*/
+		</script>
+		<script src="index.js"></script>
+	</head>
+
+	<body>
+		<div class="main">
+			<a href="http://www.miaov.com" class="logo"></a>
+			<div class="tree">
+				<ul id="oUl"></ul>
+			</div>
+
+		</div>
+	</body>
+<script>
+	let box = document.querySelector('.tree')
+	box.innerHTML = wxj(arr)
+
+	function wxj(arr){
+		var str = '<ul id="oUl">'
+		for(var i=0;i<arr.length;i++){
+			if(arr[i].child){
+				str += `<li><span class="add"></span><div>${arr[i].title}</div>`
+				str += wxj(arr[i].child)
+			}else{
+				str += `<li><div>${arr[i].title}</div>`
+			}
+			str += '</li>'
+		}
+		str += '</ul>'
+		return str
+	}
+
+	// let div = document.querySelectorAll('li div')
+	
+	// for(var i=0;i<div.length;i++){
+	// 	div[i].isClick = true;
+	// 	div[i].onclick = function(){
+	// 		let span = this.parentElement.parentElement.querySelectorAll('span')
+	// 		let uls = this.parentElement.parentElement.querySelectorAll('ul')
+	// 		if(this.nextElementSibling){
+	// 			if(this.isClick){
+	// 				for(var j=0;j<uls.length;j++){
+	// 					uls[j].style.display = 'none'
+	// 					span[j].className = 'add'
+	// 					div[j].isClick = true
+	// 				}
+	// 				this.nextElementSibling.style.display = 'block'
+	// 				this.previousElementSibling.className = 'line'
+	// 				this.isClick = false
+	// 			}else{
+	// 				this.nextElementSibling.style.display = 'none'
+	// 				this.previousElementSibling.className = 'add'
+	// 				this.isClick = true
+	// 			}
+	// 		}
+	// 	}
+	// }
+
+	let ul = box.firstElementChild
+	click(ul)
+	function click(list){
+		let li = list.children;
+		for(var i=0;i<li.length;i++){
+			if(li[i].firstElementChild.nextElementSibling){
+				var div = li[i].firstElementChild.nextElementSibling;
+				// console.log(div)
+				var span = li[i].firstElementChild
+				var uls = div.parentNode.parentNode.querySelectorAll('ul');
+				// console.log(uls)
+				div.isclick = false;
+				div.onclick = function(){
+					if(this.nextElementSibling){
+						if(!this.isclick){
+							for(var i=0;i<uls.length;i++){
+								uls[i].style.display = 'none';
+								uls[i].previousElementSibling.previousElementSibling.className = 'add';
+								uls[i].previousElementSibling.isclick = false;
+							}
+							this.nextElementSibling.style.display = 'block';
+							this.previousElementSibling.className = 'line';
+							this.isclick = true;
+							click(this.nextElementSibling);
+						}else{
+							this.nextElementSibling.style.display = 'none';
+							this.previousElementSibling.className = 'add';
+							this.isclick = false;//状态变为关闭
+						}
+					}
+					
+				};
+			}
+			
+		}
+	}
+
+	
+</script>
+</html>
